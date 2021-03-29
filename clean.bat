@@ -1,0 +1,1 @@
+del -f Sandbox.vcxproj.user
