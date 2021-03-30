@@ -1,6 +1,8 @@
 -- premake5.lua
 workspace "CobaltCXX"
    configurations { "Debug", "Release" }
+   platforms {"Linux", "MacOS", "Win64"}
+   includedirs {"include"}
 
 project "CobaltCXX"
    kind "StaticLib"
@@ -10,11 +12,9 @@ project "CobaltCXX"
    files { "CobaltCXX/src/**.*" }
    files { "include/**.h" }
 
-   includedirs {"include"}
-
    libdirs { "libs" }
 
-   links { "glfw3" }
+   links { "glfw3", "opengl32" }
 
    filter "configurations:Debug"
       defines { "DEBUG" }
@@ -36,7 +36,11 @@ project "Sandbox"
 
     links { "CobaltCXX" }
 
-    includedirs {"include"}
+    
+
+    filter "platforms:Win64"
+      defines { "CBLT_PLATFORM_WINDOWS" }
+      optimize "On"
 
     filter "configurations:Debug"
       defines { "DEBUG" }
@@ -45,5 +49,9 @@ project "Sandbox"
    filter "configurations:Release"
       defines { "NDEBUG" }
       optimize "On"
+
+
+   
+
 
     
